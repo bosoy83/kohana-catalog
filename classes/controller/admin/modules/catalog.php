@@ -236,8 +236,8 @@ class Controller_Admin_Modules_Catalog extends Controller_Admin_Front {
 		$id = (int) Request::current()->param('id');
 		$mode = Request::current()->query('mode');
 		$errors = array();
-		$wrapper = ORM_Helper::factory('catalog_Category');
-		$orm = $wrapper->orm();
+		$helper_orm = ORM_Helper::factory('catalog_Category');
+		$orm = $helper_orm->orm();
 	
 		try {
 			if ($mode !== 'fix') {
@@ -252,25 +252,25 @@ class Controller_Admin_Modules_Catalog extends Controller_Admin_Front {
 	
 				switch ($mode) {
 					case 'up':
-						$wrapper
+						$helper_orm
 							->position_move('position', ORM_Position::MOVE_PREV);
 						break;
 					case 'down':
-						$wrapper
+						$helper_orm
 							->position_move('position', ORM_Position::MOVE_NEXT);
 						break;
 					case 'first':
-						$wrapper
+						$helper_orm
 							->position_first('position');
 						break;
 					case 'last':
-						$wrapper
+						$helper_orm
 							->position_last('position');
 						break;
 				}
 			} else {
 				if ($this->acl->is_allowed($this->user, $orm, 'fix_positions')) {
-					$wrapper
+					$helper_orm
 						->position_fix('position');
 				}
 			}
