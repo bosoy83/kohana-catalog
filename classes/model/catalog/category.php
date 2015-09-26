@@ -9,18 +9,18 @@ class Model_Catalog_Category extends ORM_Base {
 
 	protected $_has_many = array(
 		'items' => array(
-			'model'       => 'catalog',
+			'model' => 'catalog_Element',
 			'foreign_key' => 'category_id',
 		),
 		'categories' => array(
-			'model'       => 'catalog_category',
+			'model' => 'catalog_Category',
 			'foreign_key' => 'category_id',
 		),
 	);
 	
 	protected $_belongs_to = array(
 		'parent' => array(
-			'model'       => 'catalog_category',
+			'model' => 'catalog_Category',
 			'foreign_key' => 'category_id',
 		),
 	);
@@ -28,15 +28,15 @@ class Model_Catalog_Category extends ORM_Base {
 	public function labels()
 	{
 		return array(
-			'category_id'     => 'Category',
-			'uri'             => 'URI',
-			'title'           => 'Title',
-			'image'           => 'Image',
-			'text'            => 'Text',
-			'active'          => 'Active',
-			'position'        => 'Position',
-			'title_tag'       => 'Title tag',
-			'keywords_tag'    => 'Keywords tag',
+			'category_id' => 'Category',
+			'uri' => 'URI',
+			'title' => 'Title',
+			'image' => 'Image',
+			'text' => 'Text',
+			'active' => 'Active',
+			'position' => 'Position',
+			'title_tag' => 'Title tag',
+			'keywords_tag' => 'Keywords tag',
 			'description_tag' => 'Desription tag',
 		);
 	}

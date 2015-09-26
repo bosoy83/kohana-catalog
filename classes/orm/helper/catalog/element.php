@@ -1,12 +1,12 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class ORM_Helper_Catalog extends ORM_Helper {
+class ORM_Helper_Catalog_Element extends ORM_Helper {
 
 	protected $_safe_delete_field = 'delete_bit';
 	
 	protected $_file_fields = array(
 		'image' => array(
-			'path' => "upload/images/catalog",
+			'path' => "upload/images/catalog/element",
 			'uri'  => NULL,
 			'on_delete' => ORM_File::ON_DELETE_RENAME,
 			'on_update' => ORM_File::ON_UPDATE_RENAME,

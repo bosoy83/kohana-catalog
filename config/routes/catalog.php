@@ -2,7 +2,8 @@
 
 return array (
 	'catalog'	=>	array(
-		'uri_callback' => '(/<category_uri>(/<element_id>))(?<query>)',
+		'uri_callback' => array('Helper_Catalog', 'route'), 
+		'regex' => '(/<category_uri>(/<element_uri>))(?<query>)',
 		'defaults'     => array(
 			'directory'  => 'modules',
 			'controller' => 'catalog',

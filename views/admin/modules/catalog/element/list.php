@@ -1,37 +1,26 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
-	if ( ! empty($breadcrumbs)):
-?>
-		<div class="row">
-			<div class="span9">
-				<ul class="breadcrumb kr-breadcrumb">
-<?php
-				foreach ($breadcrumbs as $_item) {
-					echo '<li>', 
-						(empty($_item['icon']) ? '' : '<i class="icon-folder-open"></i>&nbsp;'),
-						HTML::anchor($_item['link'], $_item['title']),
-						'<span class="divider">/</span></li>';
-				}
-?>				
-				</ul>
-			</div>
-		</div>
-<?php 
-	endif;
+	echo View_Admin::factory('layout/breadcrumbs', array(
+		'breadcrumbs' => $breadcrumbs
+	));
+	
 	if ($list->count() > 0 ): 
 		$dyn_sort_action = Route::url('modules', array(
-			'controller' => 'catalog',
-			'action'     => 'dyn_sort',
+			'controller' => 'catalog_element',
+			'action' => 'dyn_sort',
 		));
 	
 		$query_array = array(
 			'category' => $CATALOG_CATEGORY_ID,
 		);
+		if ( ! empty($BACK_URL)) {
+			$query_array['back_url'] = $BACK_URL;
+		}
 		$delete_tpl = Route::url('modules', array(
-			'controller' => 'catalog',
-			'action'     => 'delete',
-			'id'         => '{id}',
-			'query'      => Helper_Page::make_query_string($query_array),
+			'controller' => 'catalog_element',
+			'action' => 'delete',
+			'id' => '{id}',
+			'query' => Helper_Page::make_query_string($query_array),
 		));
 
 		$p = Request::current()->query( Paginator::QUERY_PARAM );
@@ -39,13 +28,11 @@
 			$query_array[ Paginator::QUERY_PARAM ] = $p;
 		}
 		$edit_tpl = Route::url('modules', array(
-			'controller' => 'catalog',
-			'action'     => 'edit',
-			'id'         => '{id}',
-			'query'      => Helper_Page::make_query_string($query_array),
+			'controller' => 'catalog_element',
+			'action' => 'edit',
+			'id' => '{id}',
+			'query' => Helper_Page::make_query_string($query_array),
 		));
-		
-		
 ?>
 		<table class="table table-bordered table-striped">
 			<colgroup>
@@ -66,7 +53,7 @@
 			</thead>
 			<tbody>
 <?php 
-			$wrapper = ORM_Helper::factory('catalog');
+			$orm_helper = ORM_Helper::factory('catalog_Element');
 			foreach ($list as $_orm):
 ?>
 			<tr>
@@ -74,18 +61,18 @@
 				<td>
 <?php
 				if ($_orm->image) {
-					$img_size = getimagesize(DOCROOT.$wrapper->file_path('image', $_orm->image));
+					$img_size = getimagesize(DOCROOT.$orm_helper->file_path('image', $_orm->image));
 					
 					if ($img_size[0] > 100 OR $img_size[1] > 100) {
-						$thumb = Thumb::uri('admin_image_100', $wrapper->file_uri('image', $_orm->image));
+						$thumb = Thumb::uri('admin_image_100', $orm_helper->file_uri('image', $_orm->image));
 					} else {
-						$thumb = $wrapper->file_uri('image', $_orm->image);
+						$thumb = $orm_helper->file_uri('image', $_orm->image);
 					}
 					
 					if ($img_size[0] > 300 OR $img_size[1] > 300) {
-						$flyout = Thumb::uri('admin_image_300', $wrapper->file_uri('image', $_orm->image));
+						$flyout = Thumb::uri('admin_image_300', $orm_helper->file_uri('image', $_orm->image));
 					} else {
-						$flyout = $wrapper->file_uri('image', $_orm->image);
+						$flyout = $orm_helper->file_uri('image', $_orm->image);
 					}
 					
 					echo HTML::anchor($flyout, HTML::image($thumb, array(
@@ -145,13 +132,18 @@
 		</tbody>
 	</table>
 <?php
+	$query_array = array(
+		'category' => $CATALOG_CATEGORY_ID,
+	);
+	if ( ! empty($BACK_URL)) {
+		$query_array['back_url'] = $BACK_URL;
+	}
+
 	$link = Route::url('modules', array(
 		'controller' => 'catalog',
-		'action'     => 'category',
-		'id'         => $CATALOG_CATEGORY_ID,
-		'query'      => Helper_Page::make_query_string(array(
-			'category' => $CATALOG_CATEGORY_ID,
-		)),
+		'action' => 'category',
+		'id' => $CATALOG_CATEGORY_ID,
+		'query' => Helper_Page::make_query_string($query_array),
 	));
 
 	echo $paginator->render($link);

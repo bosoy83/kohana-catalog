@@ -13,7 +13,7 @@ class ORM_Helper_Catalog_Category extends ORM_Helper {
 
 	protected $_file_fields = array(
 		'image' => array(
-			'path' => "upload/images/categories",
+			'path' => "upload/images/catalog/category",
 			'uri'  => NULL,
 			'on_delete' => ORM_File::ON_DELETE_RENAME,
 			'on_update' => ORM_File::ON_UPDATE_RENAME,

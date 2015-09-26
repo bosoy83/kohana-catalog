@@ -1,15 +1,15 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Model_Catalog extends ORM_Base {
+class Model_Catalog_Element extends ORM_Base {
 
-	protected $_table_name = 'catalog';
+	protected $_table_name = 'catalog_elements';
 	protected $_sorting = array('sort' => 'ASC', 'title' => 'ASC');
 	protected $_deleted_column = 'delete_bit';
 	protected $_active_column = 'active';
 
 	protected $_belongs_to = array(
 		'category' => array(
-			'model'       => 'catalog_category',
+			'model' => 'catalog_Category',
 			'foreign_key' => 'category_id',
 		),
 	);
@@ -17,15 +17,16 @@ class Model_Catalog extends ORM_Base {
 	public function labels()
 	{
 		return array(
-			'category_id'     => 'Category',
-			'code'            => 'Article',
-			'title'           => 'Title',
-			'image'           => 'Image',
-			'text'            => 'Text',
-			'active'          => 'Active',
-			'sort'            => 'Sort',
-			'title_tag'       => 'Title tag',
-			'keywords_tag'    => 'Keywords tag',
+			'category_id' => 'Category',
+			'code' => 'Article',
+			'title' => 'Title',
+			'uri' => 'URI',
+			'image' => 'Image',
+			'text' => 'Text',
+			'active' => 'Active',
+			'sort' => 'Sort',
+			'title_tag' => 'Title tag',
+			'keywords_tag' => 'Keywords tag',
 			'description_tag' => 'Desription tag',
 		);
 	}
@@ -46,6 +47,11 @@ class Model_Catalog extends ORM_Base {
 			'title' => array(
 				array('not_empty'),
 				array('max_length', array(':value', 255)),
+			),
+			'uri' => array(
+				array('min_length', array(':value', 2)),
+				array('max_length', array(':value', 100)),
+				array('alpha_dash'),
 			),
 			'image' => array(
 				array('not_empty'),
@@ -74,6 +80,9 @@ class Model_Catalog extends ORM_Base {
 			),
 			'title' => array(
 				array('strip_tags'),
+			),
+			'uri' => array(
+				array('Ku_Text::slug'),
 			),
 			'active' => array(
 				array(array($this, 'checkbox'))

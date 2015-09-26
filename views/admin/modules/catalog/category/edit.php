@@ -7,22 +7,25 @@
 	$query_array = array(
 		'category' => $CATALOG_CATEGORY_ID
 	);
+	if ( ! empty($BACK_URL)) {
+		$query_array['back_url'] = $BACK_URL;
+	}
 	if ($orm->loaded()) {
 		$p = Request::current()->query( Paginator::QUERY_PARAM );
 		if ( ! empty($p)) {
 			$query_array[ Paginator::QUERY_PARAM ] = $p;
 		}
 		$action = Route::url('modules', array(
-			'controller' => 'catalog',
-			'action'     => 'category_edit',
-			'id'         => $orm->id,
-			'query'      => Helper_Page::make_query_string($query_array),
+			'controller' => 'catalog_category',
+			'action' => 'edit',
+			'id' => $orm->id,
+			'query' => Helper_Page::make_query_string($query_array),
 		));
 	} else {
 		$action = Route::url('modules', array(
-			'controller' => 'catalog',
-			'action'     => 'category_edit',
-			'query'      => Helper_Page::make_query_string($query_array),
+			'controller' => 'catalog_category',
+			'action' => 'edit',
+			'query' => Helper_Page::make_query_string($query_array),
 		));
 	}
 
@@ -46,7 +49,7 @@
 <?php
 					echo View_Admin::factory('modules/catalog/category/tab/main', array(
 						'helper_orm' => $helper_orm,
-						'errors'     => $errors,
+						'errors' => $errors,
 						'categories' => $categories,
 					)); 
 ?>
@@ -55,15 +58,13 @@
 <?php
 					echo View_Admin::factory('modules/catalog/category/tab/description', array(
 						'helper_orm' => $helper_orm,
-						'errors'     => $errors,
+						'errors' => $errors,
 					)); 
 ?>
 				</div>
 			</div>
 		</div>
-		<div class="form-actions">
-			<button class="btn btn-primary" type="submit" name="submit" value="save" ><?php echo __('Save'); ?></button>
-			<button class="btn btn-primary" type="submit" name="submit" value="save_and_exit" ><?php echo __('Save and Exit'); ?></button>
-			<button class="btn" name="cancel" value="cancel"><?php echo __('Cancel'); ?></button>
-		</div>
+<?php
+		echo View_Admin::factory('layout/submit_buttons');
+?>		
 	</form>

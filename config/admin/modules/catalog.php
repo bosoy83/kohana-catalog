@@ -2,46 +2,52 @@
 
 return array(
 	'left_menu' => array(
-		'catalog'    => array(
-			'title'  => __('Catalog'),
-			'link'   => Route::url('modules', array(
-				'controller' => 'catalog',
+		'catalog' => array(
+			'title' => __('Catalog'),
+			'link' => Route::url('modules', array(
+				'controller' => 'catalog_category',
 			)),
-			'sub'    => array(),
+			'sub' => array(),
 		),
 	),
 	'a2' => array(
 		'resources' => array(
-			'catalog_controller' => 'module_controller',
-			'catalog_category'   => 'module',
-			'catalog'            => 'module',
+			'catalog_category_controller' => 'module_controller',
+			'catalog_element_controller' => 'module_controller',
+			'catalog_category' => 'module',
+			'catalog_element' => 'module',
 		),
 		'rules' => array(
 			'allow' => array(
-				'controller_access' => array(
-					'role'      => 'main',
-					'resource'  => 'catalog_controller',
+				'controller_category_access' => array(
+					'role' => 'main',
+					'resource' => 'catalog_category_controller',
 					'privilege' => 'access',
 				),
 				'catalog_category_edit' => array(
-					'role'      => 'main',
-					'resource'  => 'catalog_category',
+					'role' => 'main',
+					'resource' => 'catalog_category',
 					'privilege' => 'edit',
 				),
-				'catalog_edit' => array(
-					'role'      => 'main',
-					'resource'  => 'catalog',
-					'privilege' => 'edit',
-				),
-				
 				'catalog_category_fix' => array(
-					'role'      => 'main',
-					'resource'  => 'catalog_category',
+					'role' => 'main',
+					'resource' => 'catalog_category',
 					'privilege' => 'fix_positions',
 				),
-				'catalog_fix' => array(
-					'role'      => 'main',
-					'resource'  => 'catalog',
+				
+				'controller_element_access' => array(
+					'role' => 'main',
+					'resource' => 'catalog_element_controller',
+					'privilege' => 'access',
+				),
+				'catalog_element_edit' => array(
+					'role' => 'main',
+					'resource' => 'catalog_element',
+					'privilege' => 'edit',
+				),
+				'catalog_element_fix' => array(
+					'role' => 'main',
+					'resource' => 'catalog_element',
 					'privilege' => 'fix_positions',
 				),
 			),
