@@ -2,6 +2,13 @@
 
 class Helper_Catalog {
 	
+	/**
+	 * 'uri_callback' in route function for recursive categories.
+	 * 'regex' used for generation links ('(/<category_uri>(/<element_uri>))(?<query>)')
+	 * 
+	 * @param string $uri
+	 * @param Route $route
+	 */
 	public static function route($uri, $route)
 	{
 		$params = $route->defaults();
