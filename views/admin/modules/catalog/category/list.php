@@ -8,32 +8,34 @@
 		$query_array = array(
 			'category' => '--CATEGORY_ID--',
 		);
-		if ( ! empty($BACK_URL)) {
-			$query_array['back_url'] = $BACK_URL;
-		}
+		
 		$open_tpl = Route::url('modules', array(
-			'controller' => 'catalog_category',
+			'controller' => $CONTROLLER_NAME['category'],
 			'query' => Helper_Page::make_query_string($query_array),
 		));
 		$elements_list_tpl = Route::url('modules', array(
-			'controller' => 'catalog_element',
+			'controller' => $CONTROLLER_NAME['element'],
 			'query' => Helper_Page::make_query_string($query_array),
 		));
 		
 		$query_array['category'] = $CATALOG_CATEGORY_ID;
+		if ( ! empty($BACK_URL)) {
+			$query_array['back_url'] = $BACK_URL;
+		}
 		$delete_tpl = Route::url('modules', array(
-			'controller' => 'catalog_category',
+			'controller' => $CONTROLLER_NAME['category'],
 			'action' => 'delete',
 			'id' => '{id}',
 			'query' => Helper_Page::make_query_string($query_array),
 		));
-
+		unset($query_array['back_url']);
+		
 		$p = Request::current()->query( Paginator::QUERY_PARAM );
 		if ( ! empty($p)) {
 			$query_array[ Paginator::QUERY_PARAM ] = $p;
 		}
 		$edit_tpl = Route::url('modules', array(
-			'controller' => 'catalog_category',
+			'controller' => $CONTROLLER_NAME['category'],
 			'action' => 'edit',
 			'id' => '{id}',
 			'query' => Helper_Page::make_query_string($query_array),
@@ -41,8 +43,11 @@
 		
 		// Position link templates
 		$query_array['mode'] = 'up';
+		if ( ! empty($BACK_URL)) {
+			$query_array['back_url'] = $BACK_URL;
+		}
 		$up_tpl	= Route::url('modules', array(
-			'controller' => 'catalog_category',
+			'controller' => $CONTROLLER_NAME['category'],
 			'action' => 'position',
 			'id' => '{id}',
 			'query' => Helper_Page::make_query_string($query_array),
@@ -50,7 +55,7 @@
 		
 		$query_array['mode'] = 'down';
 		$down_tpl = Route::url('modules', array(
-			'controller' => 'catalog_category',
+			'controller' => $CONTROLLER_NAME['category'],
 			'action' => 'position',
 			'id' => '{id}',
 			'query' => Helper_Page::make_query_string($query_array),
@@ -58,7 +63,7 @@
 		
 		$query_array['mode'] = 'first';
 		$first_tpl =  Route::url('modules', array(
-			'controller' => 'catalog_category',
+			'controller' => $CONTROLLER_NAME['category'],
 			'action' => 'position',
 			'id' => '{id}',
 			'query'	=> Helper_Page::make_query_string($query_array),
@@ -66,12 +71,11 @@
 		
 		$query_array['mode'] = 'last';
 		$last_tpl =  Route::url('modules', array(
-			'controller' => 'catalog_category',
+			'controller' => $CONTROLLER_NAME['category'],
 			'action' => 'position',
 			'id' => '{id}',
 			'query'	=> Helper_Page::make_query_string($query_array),
 		));
-		
 ?>
 		<table class="table table-bordered table-striped">
 			<colgroup>
@@ -197,11 +201,8 @@
 	$query_array = array(
 		'category' => $CATALOG_CATEGORY_ID,
 	);
-	if ( ! empty($BACK_URL)) {
-		$query_array['back_url'] = $BACK_URL;
-	}
 	$link = Route::url('modules', array(
-		'controller' => 'catalog',
+		'controller' => $CONTROLLER_NAME['category'],
 		'query' => Helper_Page::make_query_string($query_array),
 	));
 

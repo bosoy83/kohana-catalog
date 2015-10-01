@@ -16,14 +16,14 @@
 			$query_array[ Paginator::QUERY_PARAM ] = $p;
 		}
 		$action = Route::url('modules', array(
-			'controller' => 'catalog_category',
+			'controller' => $CONTROLLER_NAME['category'],
 			'action' => 'edit',
 			'id' => $orm->id,
 			'query' => Helper_Page::make_query_string($query_array),
 		));
 	} else {
 		$action = Route::url('modules', array(
-			'controller' => 'catalog_category',
+			'controller' => $CONTROLLER_NAME['category'],
 			'action' => 'edit',
 			'query' => Helper_Page::make_query_string($query_array),
 		));

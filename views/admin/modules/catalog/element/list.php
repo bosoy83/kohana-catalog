@@ -6,7 +6,7 @@
 	
 	if ($list->count() > 0 ): 
 		$dyn_sort_action = Route::url('modules', array(
-			'controller' => 'catalog_element',
+			'controller' => 'catalog_Element',
 			'action' => 'dyn_sort',
 		));
 	
@@ -17,18 +17,19 @@
 			$query_array['back_url'] = $BACK_URL;
 		}
 		$delete_tpl = Route::url('modules', array(
-			'controller' => 'catalog_element',
+			'controller' => $CONTROLLER_NAME['element'],
 			'action' => 'delete',
 			'id' => '{id}',
 			'query' => Helper_Page::make_query_string($query_array),
 		));
+		unset($query_array['back_url']);
 
 		$p = Request::current()->query( Paginator::QUERY_PARAM );
 		if ( ! empty($p)) {
 			$query_array[ Paginator::QUERY_PARAM ] = $p;
 		}
 		$edit_tpl = Route::url('modules', array(
-			'controller' => 'catalog_element',
+			'controller' => $CONTROLLER_NAME['element'],
 			'action' => 'edit',
 			'id' => '{id}',
 			'query' => Helper_Page::make_query_string($query_array),
@@ -138,9 +139,8 @@
 	if ( ! empty($BACK_URL)) {
 		$query_array['back_url'] = $BACK_URL;
 	}
-
 	$link = Route::url('modules', array(
-		'controller' => 'catalog',
+		'controller' => $CONTROLLER_NAME['element'],
 		'action' => 'category',
 		'id' => $CATALOG_CATEGORY_ID,
 		'query' => Helper_Page::make_query_string($query_array),

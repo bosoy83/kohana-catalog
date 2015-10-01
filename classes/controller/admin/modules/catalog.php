@@ -6,13 +6,24 @@ class Controller_Admin_Modules_Catalog extends Controller_Admin_Front {
 	protected $sub_title = 'Catalog';
 	protected $category_id;
 	protected $module_config = 'catalog';
-
+	protected $_controller_name = array(
+		'category' => 'catalog_category',
+		'element' => 'catalog_element',
+	);
+	
 	public function before()
 	{
 		parent::before();
 		$this->category_id = (int) Request::current()->query('category');
 		$this->template
 			->bind_global('CATALOG_CATEGORY_ID', $this->category_id);
+		
+		$query_controller = $this->request->query('controller');
+		if ( ! empty($query_controller) AND is_array($query_controller)) {
+			$this->_controller_name = $this->request->query('controller');
+		}
+		$this->template
+			->bind_global('CONTROLLER_NAME', $this->_controller_name);
 	}
 
 	protected function get_aside_view()
@@ -40,11 +51,8 @@ class Controller_Admin_Modules_Catalog extends Controller_Admin_Front {
 		$query_array = array(
 			'category' => '--CATEGORY_ID--'
 		);
-		if ( ! empty($this->back_url)) {
-			$query_array['back_url'] = $this->back_url;
-		}
 		$link_tpl = Route::url('modules', array(
-			'controller' => 'catalog_category',
+			'controller' => $this->_controller_name['category'],
 			'query' => Helper_Page::make_query_string($query_array),
 		));
 			
@@ -129,7 +137,7 @@ class Controller_Admin_Modules_Catalog extends Controller_Admin_Front {
 					'list_category' => array(
 						'title' => __('Categories list'),
 						'link' => Route::url('modules', array(
-							'controller' => 'catalog_category',
+							'controller' => $this->_controller_name['category'],
 							'query' => 'category={CATEGORY_ID}'
 						)),
 					),
@@ -146,7 +154,7 @@ class Controller_Admin_Modules_Catalog extends Controller_Admin_Front {
 					'add_category' => array(
 						'title' => __('Add category'),
 						'link' => Route::url('modules', array(
-							'controller' => 'catalog_category',
+							'controller' => $this->_controller_name['category'],
 							'action' => 'edit',
 							'query' => 'category={CATEGORY_ID}'
 						)),
@@ -162,7 +170,7 @@ class Controller_Admin_Modules_Catalog extends Controller_Admin_Front {
 			'fix' => array(
 				'title' => __('Fix positions'),
 				'link'  => Route::url('modules', array(
-					'controller' => 'catalog_category',
+					'controller' => $this->_controller_name['category'],
 					'action' => 'position',
 					'query' => 'mode=fix',
 				)),
@@ -176,7 +184,7 @@ class Controller_Admin_Modules_Catalog extends Controller_Admin_Front {
 			'catalog_elements' => array(
 				'title' => __('Elements list'),
 				'link' => Route::url('modules', array(
-					'controller' => 'catalog_element',
+					'controller' => $this->_controller_name['element'],
 					'id' => $category_id,
 					'query' => 'category={CATEGORY_ID}'
 				)),
@@ -193,7 +201,7 @@ class Controller_Admin_Modules_Catalog extends Controller_Admin_Front {
 					'add_element' => array(
 						'title' => __('Add element'),
 						'link' => Route::url('modules', array(
-							'controller' => 'catalog_element',
+							'controller' => $this->_controller_name['element'],
 							'action' => 'edit',
 							'query' => 'category={CATEGORY_ID}'
 						)),

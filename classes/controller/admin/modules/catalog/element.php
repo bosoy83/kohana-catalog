@@ -54,7 +54,7 @@ class Controller_Admin_Modules_Catalog_Element extends Controller_Admin_Modules_
 			throw new HTTP_Exception_404();
 		}
 		
-		$id = (int) Request::current()->param('id');
+		$id = (int) $this->request->current()->param('id');
 		$helper_orm = ORM_Helper::factory('catalog_Element');
 		$orm = $helper_orm->orm();
 		if ( (bool) $id) {
@@ -70,23 +70,23 @@ class Controller_Admin_Modules_Catalog_Element extends Controller_Admin_Modules_
 			$this->title = __('Add element');
 		}
 		
-		$query_array = array(
-			'category' => $this->category_id,
-		);
-		if ( ! empty($this->back_url)) {
-			$query_array['back_url'] = $this->back_url;
+		if (empty($this->back_url)) {
+			$query_array = array(
+				'category' => $this->category_id,
+			);
+			$p = $this->request->current()->query( Paginator::QUERY_PARAM );
+			if ( (bool) $id && ! empty($p)) {
+				$query_array[ Paginator::QUERY_PARAM ] = $p;
+			}
+			$this->back_url = Route::url('modules', array(
+				'controller' => $this->_controller_name['element'],
+				'query' => Helper_Page::make_query_string($query_array),
+			));
 		}
-		$p = Request::current()->query( Paginator::QUERY_PARAM );
-		if ( (bool) $id && ! empty($p)) {
-			$query_array[ Paginator::QUERY_PARAM ] = $p;
-		}
-		$list_url = Route::url( 'modules', array(
-			'controller' => 'catalog_element',
-			'query' => Helper_Page::make_query_string($query_array),
-		));
 
 		if ($this->is_cancel) {
-			Request::current()->redirect($list_url);
+			$this->request->current()
+				->redirect($this->back_url);
 		}
 		
 		if (empty($orm->sort)) {
@@ -94,7 +94,7 @@ class Controller_Admin_Modules_Catalog_Element extends Controller_Admin_Modules_
 		}
 		
 		$errors = array();
-		$submit = Request::current()->post('submit');
+		$submit = $this->request->current()->post('submit');
 		if ($submit) {
 			try {
 				if ( (bool) $id) {
@@ -106,7 +106,7 @@ class Controller_Admin_Modules_Catalog_Element extends Controller_Admin_Modules_
 				}
 
 				$values = $orm->check_meta_fields(
-					Request::current()->post(),
+					$this->request->current()->post(),
 					'meta_tags'
 				);
 				
@@ -146,13 +146,14 @@ class Controller_Admin_Modules_Catalog_Element extends Controller_Admin_Modules_
 				->set('helper_orm', $helper_orm)
 				->set('categories', $categories);
 		} else {
-			Request::current()->redirect($list_url);
+			$this->request->current()
+				->redirect($this->back_url);
 		}
 	}
 	
 	public function action_delete()
 	{
-		$id = (int) Request::current()->param('id');
+		$id = (int) $this->request->current()->param('id');
 	
 		$helper_orm = ORM_Helper::factory('catalog_Element');
 		$orm = $helper_orm->orm();
@@ -165,18 +166,18 @@ class Controller_Admin_Modules_Catalog_Element extends Controller_Admin_Modules_
 		}
 	
 		if ($this->delete_element($helper_orm)) {
-			$query_array = array(
-				'category' => $this->category_id,
-			);
-			if ( ! empty($this->back_url)) {
-				$query_array['back_url'] = $this->back_url;
+			if (empty($this->back_url)) {
+				$query_array = array(
+					'category' => $this->category_id,
+				);
+				$this->back_url = Route::url('modules', array(
+					'controller' => $this->_controller_name['element'],
+					'query' => Helper_Page::make_query_string($query_array),
+				));
 			}
 			
-			$list_url = Route::url('modules', array(
-				'controller' => 'catalog_element',
-				'query' => Helper_Page::make_query_string($query_array),
-			));
-			Request::current()->redirect($list_url);
+			$this->request->current()
+				->redirect($this->back_url);
 		}
 	}
 	
