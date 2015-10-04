@@ -1,4 +1,4 @@
-CREATE TABLE `prefix_catalog_categories` (
+CREATE TABLE `catalog_categories` (
 	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`category_id` INT(10) UNSIGNED NOT NULL DEFAULT '0',
 	`uri` VARCHAR(255) NOT NULL DEFAULT '',
@@ -23,7 +23,7 @@ COLLATE='utf8_general_ci'
 ENGINE=MyISAM
 ROW_FORMAT=DEFAULT;
 
-CREATE TABLE `prefix_catalog_elements` (
+CREATE TABLE `catalog_elements` (
 	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`category_id` INT(10) UNSIGNED NOT NULL DEFAULT '0',
 	`code` VARCHAR(255) NOT NULL DEFAULT '',
