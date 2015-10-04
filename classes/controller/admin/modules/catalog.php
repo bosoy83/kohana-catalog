@@ -185,8 +185,7 @@ class Controller_Admin_Modules_Catalog extends Controller_Admin_Front {
 				'title' => __('Elements list'),
 				'link' => Route::url('modules', array(
 					'controller' => $this->_controller_name['element'],
-					'id' => $category_id,
-					'query' => 'category={CATEGORY_ID}'
+					'query' => 'category='.$category_id
 				)),
 				'sub' => array(),
 			),
