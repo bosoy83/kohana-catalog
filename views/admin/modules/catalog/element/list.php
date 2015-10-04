@@ -6,7 +6,7 @@
 	
 	if ($list->count() > 0 ): 
 		$dyn_sort_action = Route::url('modules', array(
-			'controller' => 'catalog_Element',
+			'controller' => 'catalog_element',
 			'action' => 'dyn_sort',
 		));
 	

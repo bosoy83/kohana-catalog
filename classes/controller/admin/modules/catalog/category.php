@@ -167,11 +167,12 @@ class Controller_Admin_Modules_Catalog_Category extends Controller_Admin_Modules
 				$query_array = array(
 					'category' => $this->category_id
 				);
-				$list_url = Route::url('modules', array(
+				$this->back_url = Route::url('modules', array(
 					'controller' => $this->_controller_name['category'],
 					'query' => Helper_Page::make_query_string($query_array),
 				));
 			}
+			
 			$this->request->current()
 				->redirect($this->back_url);
 		}
