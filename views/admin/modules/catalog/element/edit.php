@@ -43,6 +43,7 @@
 					'data-toggle' => 'tab'
 				)), '</li>'; 
 ?>
+				<!-- #tab-nav-insert# -->
 			</ul>
 			<div class="tab-content kr-tab-content">
 				<div class="tab-pane kr-tab-pane active" id="tab-main">
@@ -62,6 +63,7 @@
 					)); 
 ?>
 				</div>
+				<!-- #tab-pane-insert# -->
 			</div>
 		</div>
 <?php
