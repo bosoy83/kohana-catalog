@@ -178,14 +178,14 @@ class Controller_Admin_Modules_Catalog extends Controller_Admin_Front {
 		));
 	}
 	
-	protected function left_menu_element_list($category_id)
+	protected function left_menu_element_list()
 	{
 		$this->_ex_menu_items = array_merge_recursive($this->_ex_menu_items, array(
 			'catalog_elements' => array(
 				'title' => __('Elements list'),
 				'link' => Route::url('modules', array(
 					'controller' => $this->_controller_name['element'],
-					'query' => 'category='.$category_id
+					'query' => 'category={CATEGORY_ID}'
 				)),
 				'sub' => array(),
 			),

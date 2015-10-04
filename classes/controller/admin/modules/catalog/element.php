@@ -40,7 +40,7 @@ class Controller_Admin_Modules_Catalog_Element extends Controller_Admin_Modules_
 			if ($this->acl->is_allowed($this->user, $category_orm, 'edit')) {
 				$this->left_menu_category_add();
 			}
-			$this->left_menu_element_list($this->category_id);
+			$this->left_menu_element_list();
 			$this->left_menu_element_add();
 		}
 	}
@@ -134,7 +134,7 @@ class Controller_Admin_Modules_Catalog_Element extends Controller_Admin_Modules_
 				if ($this->acl->is_allowed($this->user, $category_orm, 'edit')) {
 					$this->left_menu_category_add();
 				}
-				$this->left_menu_element_list($category_orm->id);
+				$this->left_menu_element_list();
 				if ($this->acl->is_allowed($this->user, $orm, 'edit')) {
 					$this->left_menu_element_add();
 				}

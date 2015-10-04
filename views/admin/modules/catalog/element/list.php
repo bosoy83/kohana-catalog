@@ -22,7 +22,6 @@
 			'id' => '{id}',
 			'query' => Helper_Page::make_query_string($query_array),
 		));
-		unset($query_array['back_url']);
 
 		$p = Request::current()->query( Paginator::QUERY_PARAM );
 		if ( ! empty($p)) {
@@ -141,8 +140,6 @@
 	}
 	$link = Route::url('modules', array(
 		'controller' => $CONTROLLER_NAME['element'],
-		'action' => 'category',
-		'id' => $CATALOG_CATEGORY_ID,
 		'query' => Helper_Page::make_query_string($query_array),
 	));
 

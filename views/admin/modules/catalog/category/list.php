@@ -28,7 +28,6 @@
 			'id' => '{id}',
 			'query' => Helper_Page::make_query_string($query_array),
 		));
-		unset($query_array['back_url']);
 		
 		$p = Request::current()->query( Paginator::QUERY_PARAM );
 		if ( ! empty($p)) {

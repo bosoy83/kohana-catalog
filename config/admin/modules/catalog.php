@@ -45,11 +45,6 @@ return array(
 					'resource' => 'catalog_element',
 					'privilege' => 'edit',
 				),
-				'catalog_element_fix' => array(
-					'role' => 'main',
-					'resource' => 'catalog_element',
-					'privilege' => 'fix_positions',
-				),
 			),
 		)
 	),

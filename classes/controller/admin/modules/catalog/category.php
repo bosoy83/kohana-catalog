@@ -36,14 +36,14 @@ class Controller_Admin_Modules_Catalog_Category extends Controller_Admin_Modules
 			$this->title = $category_orm->title;
 			
 			if ($this->is_initial) {
-				$this->left_menu_element_list($category_orm->id);
+				$this->left_menu_element_list();
 			}
 		} else {
 			$this->title = __('Catalog');
 		}
 		$this->sub_title = __('Categories');
 		
-		if ($this->is_initial AND $acl_edit) {
+		if ($this->is_initial AND $this->acl->is_allowed($this->user, $orm, 'fix_positions')) {
 			$this->left_menu_category_fix();
 		}
 			
@@ -128,7 +128,7 @@ class Controller_Admin_Modules_Catalog_Category extends Controller_Admin_Modules
 					$this->left_menu_category_add();
 				}
 				if ( (bool) $id) {
-					$this->left_menu_element_list($id);
+					$this->left_menu_element_list();
 				}
 			}
 			$this->template
