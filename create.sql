@@ -31,6 +31,7 @@ CREATE TABLE `catalog_elements` (
 	`uri` VARCHAR(255) NOT NULL DEFAULT '',
 	`image_1` VARCHAR(255) NOT NULL DEFAULT '',
 	`image_2` VARCHAR(255) NOT NULL DEFAULT '',
+	`announcement` TEXT NOT NULL,
 	`text` TEXT NOT NULL,
 	`active` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0',
 	`sort` INT(10) UNSIGNED NOT NULL DEFAULT '500',
@@ -48,8 +49,7 @@ CREATE TABLE `catalog_elements` (
 )
 COLLATE='utf8_general_ci'
 ENGINE=MyISAM
-ROW_FORMAT=DEFAULT
-;
+ROW_FORMAT=DEFAULT;
 
 
 

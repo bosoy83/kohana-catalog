@@ -28,4 +28,5 @@ return array(
 	'Article' => 'Артикул',
 	'Image 1' => 'Изображение 1',
 	'Image 2' => 'Изображение 2',
+	'Announcement' => 'Анонс',
 );

@@ -5,28 +5,17 @@
 	$required = $orm->required_fields();
 	
 
-/**** image_1 ****/
+/**** announcement ****/
 	
-	echo View_Admin::factory('form/image', array(
-		'field' => 'image_1',
-		'value' => $orm->image_1,
-		'orm_helper' => $helper_orm,
+	echo View_Admin::factory('form/control', array(
+		'field' => 'announcement',
 		'errors' => $errors,
 		'labels' => $labels,
 		'required' => $required,
-// 		'help_text' => '360x240px',
-	));
-
-/**** image_2 ****/
-	
-	echo View_Admin::factory('form/image', array(
-		'field' => 'image_2',
-		'value' => $orm->image_2,
-		'orm_helper' => $helper_orm,
-		'errors' => $errors,
-		'labels' => $labels,
-		'required' => $required,
-// 		'help_text' => '360x240px',
+		'controls' => Form::textarea('announcement', $orm->announcement, array(
+			'id' => 'announcement_field',
+			'class' => 'text_editor',
+		)),
 	));
 	
 /**** text ****/

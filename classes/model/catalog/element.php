@@ -23,6 +23,7 @@ class Model_Catalog_Element extends ORM_Base {
 			'uri' => 'URI',
 			'image_1' => 'Image 1',
 			'image_2' => 'Image 2',
+			'announcement' => 'Announcement',
 			'text' => 'Text',
 			'active' => 'Active',
 			'sort' => 'Sort',
