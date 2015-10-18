@@ -21,7 +21,8 @@ class Model_Catalog_Element extends ORM_Base {
 			'code' => 'Article',
 			'title' => 'Title',
 			'uri' => 'URI',
-			'image' => 'Image',
+			'image_1' => 'Image 1',
+			'image_2' => 'Image 2',
 			'text' => 'Text',
 			'active' => 'Active',
 			'sort' => 'Sort',
@@ -53,8 +54,10 @@ class Model_Catalog_Element extends ORM_Base {
 				array('max_length', array(':value', 100)),
 				array('alpha_dash'),
 			),
-			'image' => array(
-				array('not_empty'),
+			'image_1' => array(
+				array('max_length', array(':value', 255)),
+			),
+			'image_2' => array(
 				array('max_length', array(':value', 255)),
 			),
 			'sort' => array(

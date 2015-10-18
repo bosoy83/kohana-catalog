@@ -60,19 +60,19 @@
 				<td><?php echo $_orm->id ?></td>
 				<td>
 <?php
-				if ($_orm->image) {
-					$img_size = getimagesize(DOCROOT.$orm_helper->file_path('image', $_orm->image));
+				if ($_orm->image_1) {
+					$img_size = getimagesize(DOCROOT.$orm_helper->file_path('image_1', $_orm->image_1));
 					
 					if ($img_size[0] > 100 OR $img_size[1] > 100) {
-						$thumb = Thumb::uri('admin_image_100', $orm_helper->file_uri('image', $_orm->image));
+						$thumb = Thumb::uri('admin_image_100', $orm_helper->file_uri('image_1', $_orm->image_1));
 					} else {
-						$thumb = $orm_helper->file_uri('image', $_orm->image);
+						$thumb = $orm_helper->file_uri('image_1', $_orm->image_1);
 					}
 					
 					if ($img_size[0] > 300 OR $img_size[1] > 300) {
-						$flyout = Thumb::uri('admin_image_300', $orm_helper->file_uri('image', $_orm->image));
+						$flyout = Thumb::uri('admin_image_300', $orm_helper->file_uri('image_1', $_orm->image_1));
 					} else {
-						$flyout = $orm_helper->file_uri('image', $_orm->image);
+						$flyout = $orm_helper->file_uri('image_1', $_orm->image_1);
 					}
 					
 					echo HTML::anchor($flyout, HTML::image($thumb, array(
