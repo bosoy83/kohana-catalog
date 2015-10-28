@@ -111,6 +111,11 @@ class Controller_Admin_Modules_Catalog_Category extends Controller_Admin_Modules
 				}
 	
 				$helper_orm->save($values + $_FILES);
+				
+				$this->request->current()
+					->response()
+					->headers('CMS-ID', $orm->id);
+				
 				Controller_Admin_Structure::clear_structure_cache();
 			} catch (ORM_Validation_Exception $e) {
 				$errors = $e->errors('');

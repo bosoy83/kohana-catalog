@@ -115,6 +115,11 @@ class Controller_Admin_Modules_Catalog_Element extends Controller_Admin_Modules_
 				}
 				
 				$helper_orm->save($values + $_FILES);
+				
+				$this->request->current()
+					->response()
+					->headers('CMS-ID', $orm->id);
+				
 			} catch (ORM_Validation_Exception $e) {
 				$errors = $e->errors( '' );
 				if ( ! empty($errors['_files'])) {
