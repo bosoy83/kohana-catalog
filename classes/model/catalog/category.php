@@ -29,6 +29,7 @@ class Model_Catalog_Category extends ORM_Base {
 	{
 		return array(
 			'category_id' => 'Category',
+			'level' => 'Level',
 			'uri' => 'URI',
 			'title' => 'Title',
 			'image' => 'Image',
@@ -49,6 +50,9 @@ class Model_Catalog_Category extends ORM_Base {
 			),
 			'category_id' => array(
 				array('not_empty'),
+				array('digit'),
+			),
+			'level' => array(
 				array('digit'),
 			),
 			'uri' => array(

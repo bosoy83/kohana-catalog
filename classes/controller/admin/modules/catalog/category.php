@@ -109,7 +109,8 @@ class Controller_Admin_Modules_Catalog_Category extends Controller_Admin_Modules
 				if (empty($values['uri']) OR $this->row_exist($orm, 'uri', $values['uri'])) {
 					$values['uri'] = $this->unique_transliterate($values['title'], $orm, 'uri');
 				}
-	
+				$values['level'] = $this->_get_level($values['category_id']);
+				
 				$helper_orm->save($values + $_FILES);
 				
 				$this->request->current()
@@ -147,6 +148,17 @@ class Controller_Admin_Modules_Catalog_Category extends Controller_Admin_Modules
 		}
 	}
 	
+	private function _get_level($category_id)
+	{
+		$level = 0;
+		if ($category_id > 0) {
+			$orm = ORM::factory('catalog_Category', $category_id);
+			if ($orm->loaded()) {
+				$level = (int) $orm->level + 1;
+			}
+		}
+		return $level;
+	}
 	
 	public function action_delete()
 	{
